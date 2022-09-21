@@ -1,0 +1,13 @@
+﻿@model List<CinemaWeb.Domain.Entity.Film>
+@{
+    ViewData["Title"] = "GetFilms";
+    Layout = "_Layout";
+}
+
+<h1>GetFilms</h1>
+
+@foreach (var film in Model){
+    <p>@film.Name</p>
+    <p>@film.Price</p>
+}
+
