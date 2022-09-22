@@ -18,33 +18,33 @@ namespace CinemaWeb.DAL.Repositories
             _db = db;
         }
 
-        public bool Create(Film entity)
+        public async Task<bool> Create(Film entity)
         {
-            _db.Film.Add(entity);
-            _db.SaveChanges();
+            await _db.Film.AddAsync(entity);
+            await _db.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(Film entity)
+        public async Task<bool> Delete(Film entity)
         {
             _db.Film.Remove(entity);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
              return false;
         }
 
-        public Film Get(int id)
+        public async Task<Film> Get(int id)
         {
-            return _db.Film.FirstOrDefault(x => x.Id == id);
+            return await _db.Film.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Film GetByName(string name)
+        public async Task<Film> GetByName(string name)
         {
-            return _db.Film.FirstOrDefault(x => x.Name == name);
+            return await _db.Film.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public IEnumerable<Film> Select()
+        public async Task<List<Film>> Select()
         {
-             return _db.Film.ToList() ; //Обращение к таблице Film(получение списка данных)
+             return await _db.Film.ToListAsync() ; //Обращение к таблице Film(получение списка данных)
         }
     }
 }

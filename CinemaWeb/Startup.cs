@@ -1,6 +1,8 @@
 using CinemaWeb.DAL;
 using CinemaWeb.DAL.Interfaces;
 using CinemaWeb.DAL.Repositories;
+using CinemaWeb.Service.Implementations;
+using CinemaWeb.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,7 @@ namespace CinemaWeb
             options.UseSqlServer(connection));
 
             services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<IFilmService, FilmService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

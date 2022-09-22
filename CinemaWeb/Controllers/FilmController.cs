@@ -1,39 +1,31 @@
 ﻿using CinemaWeb.DAL.Interfaces;
 using CinemaWeb.Domain.Entity;
 using CinemaWeb.Domain.Enum;
+using CinemaWeb.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace CinemaWeb.Controllers
 {
     public class FilmController : Controller
     {
-        private readonly IFilmRepository _filmRepository;
+        private readonly IFilmService _FilmService;
 
-        public FilmController(IFilmRepository filmRepository)
+        public FilmController(IFilmService filmService)
         {
-            _filmRepository = filmRepository;
+            _FilmService = filmService;
         }
+
         [HttpGet]
-        public IActionResult GetFilms()
+        public async Task<IActionResult> GetFilmsAsync()
         {
-            var response = _filmRepository.Select();
-            var respone1 = _filmRepository.GetByName("Шпачело");
-            var respone2 = _filmRepository.Get(1);
-
-            var film = new Film()
+          var resopnse = await _FilmService.GetFilms();
+            if (resopnse.StatusCode == Domain.Enum.StatusCode.OK)
             {
-            
-                Name = "Антон",
-                Description = "DFFDDF",
-                Price = 25,
-                ReleaseDate = DateTime.Now,
-                //GenreFilm = (GenreFilm)3,
-            };
-
-            var respone3 = _filmRepository.Create(film);
-            var respone4 = _filmRepository.Delete(film);
-            return View(response);
+                return View(resopnse.Data);
+            }
+            return RedirectToAction("Error");
         }
     }
 }

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaWeb.DAL\CinemaWeb.DAL.csproj" />
+    <ProjectReference Include="..\CinemaWeb.Domain\CinemaWeb.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

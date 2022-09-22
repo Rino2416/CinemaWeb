@@ -1,14 +1,15 @@
 ﻿using CinemaWeb.Domain.Entity;
+using CinemaWeb.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaWeb.DAL.Interfaces
+namespace CinemaWeb.Service.Interfaces
 {
-    public interface IFilmRepository : IBaseRepository<Film>
+    public interface IFilmService
     {
-        Task<Film> GetByName(string name);
+        Task<IBaseResponse<IEnumerable<Film>>> GetFilms();
     }
 }

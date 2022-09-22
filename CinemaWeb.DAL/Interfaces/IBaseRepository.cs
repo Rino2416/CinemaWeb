@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaWeb.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,15 @@ namespace CinemaWeb.DAL.Interfaces
 {
     public interface IBaseRepository<T> // методы для взаимодейсвтия с бд
     {
-        bool Create(T entity); // добавление объекта
+        Task<bool> Create(T entity); // добавление объекта
 
-        T Get(int id); // 1 объект из таблицы
+        Task<T> Get(int id); // 1 объект из таблицы
 
-        IEnumerable<T> Select(); // возвращение коллекции элементов
+        Task<List<T>> Select(); // возвращение коллекции элементов
 
-        bool Delete(T entity); // удаление объекта
+        Task<bool> Delete(T entity); // удаление объекта
+
+      
 
     }
 }

@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CinemaWeb.DAL\CinemaWeb.DAL.csproj" />
     <ProjectReference Include="..\CinemaWeb.Domain\CinemaWeb.Domain.csproj" />
+    <ProjectReference Include="..\CinemaWeb.Service\CinemaWeb.Service.csproj" />
   </ItemGroup>
 
 </Project>
