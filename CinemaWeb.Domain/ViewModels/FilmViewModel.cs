@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaWeb.Domain.Entity
+namespace CinemaWeb.Domain.ViewModels
 {
-    public class Film
+    public class FilmViewModel
     {
-        public int Id { get; set; } // id
+        public int Id { get; set; }
         public string Name { get; set; } // Название фильма
-        public GenreFilm GenreFilm { get; set; } // Жанр
+        public string GenreFilm { get; set; } // Жанр
         public string Description { get; set; } // Описание
         public decimal Price { get; set; } // Цена
         public DateTime ReleaseDate { get; set; } // Дата выхода
 
-    }  
+    }
 }

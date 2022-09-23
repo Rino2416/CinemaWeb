@@ -17,7 +17,7 @@ namespace CinemaWeb.DAL.Interfaces
 
         Task<bool> Delete(T entity); // удаление объекта
 
-      
+        Task<T> Update(T entity);
 
     }
 }

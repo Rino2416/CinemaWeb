@@ -8,6 +8,8 @@ namespace CinemaWeb.Domain.Enum
 {
     public enum StatusCode
     {
+        FilmNotFound = 10,
+        UserNotFound = 0,
         OK = 200,
         InternalServerError = 500,
     }

@@ -46,5 +46,12 @@ namespace CinemaWeb.DAL.Repositories
         {
              return await _db.Film.ToListAsync() ; //Обращение к таблице Film(получение списка данных)
         }
+
+        public async Task<Film> Update(Film entity)
+        {
+            _db.Film.Update(entity);
+            await _db.SaveChangesAsync();
+            return entity;
+        }
     }
 }
