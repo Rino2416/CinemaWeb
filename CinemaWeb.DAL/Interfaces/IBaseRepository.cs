@@ -19,5 +19,7 @@ namespace CinemaWeb.DAL.Interfaces
 
         Task<T> Update(T entity);
 
+      
+
     }
 }
