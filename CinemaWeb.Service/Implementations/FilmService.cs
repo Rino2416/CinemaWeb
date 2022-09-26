@@ -113,7 +113,7 @@ namespace CinemaWeb.Service.Implementations
                     baseResponse.StatusCode = StatusCode.UserNotFound;
                     return baseResponse;
                 }
-
+                baseResponse.StatusCode = StatusCode.OK;
                 baseResponse.Data = film;
                 return baseResponse;
             }

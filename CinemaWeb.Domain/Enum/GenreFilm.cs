@@ -10,16 +10,16 @@ namespace CinemaWeb.Domain.Enum
     public enum GenreFilm
     {
         [Display(Name = "Боевик")]
-        Action = 0,
+        Боевик = 0,
         [Display(Name = "Детектив")]
-        Detective = 1,
+        Детектив = 1,
         [Display(Name = "Драма")]
-        Drama = 2,
+        Драма = 2,
         [Display(Name = "Комедия")]
-        Comedy = 3,
+        Комедия = 3,
         [Display(Name = "Мультфильм")]
         Cartoon = 4,
         [Display(Name = "Катастрофа")]
-        Catastrophe = 5
+        Катастрофа = 5
     }
 }
