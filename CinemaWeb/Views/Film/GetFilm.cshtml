@@ -4,21 +4,20 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
-
-<div style="padding: 10px;"></div>
+<link rel="stylesheet" href="~/css/HideScrollcss.css" />
+<div style="padding: 5px;"></div>
 <div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/8860a168-27d8-433f-ad9b-06472fca8596/600x900"
-                 class="img-fluid rounded-start rounded" alt="@Model?.Name">
+    <div class="row g-1">
+        <div class="col-md-3">
+            <img src="https://kuda-spb.ru//uploads/190729192252260.jpg"
+                 class="card-img-top" style="display: flex;" alt="@Model?.Name">
         </div>
         <div class="col-md-4">
             <div class="card-body">
                 <h5 class="card-title text-center">@Model?.Name</h5>
+                <p class="card-text"><b>Жанр(-ы): </b>@Model?.GenreFilm</p>
+                <p class="card-text"><b>Стоимость: </b>@Model?.Price BYN</p>
                 <p class="card-text"><b>Описание: </b>@Model?.Description</p>
-                <p class="card-text"><b>Стоимость: </b>@Model?.Price ₽</p>
-                <p class="card-text"><b>Тип: </b>@Model?.GenreFilm</p>
-                <p class="card-text"><b>Модель: </b>@Model.Name</p>
                 <p class="card-text"><small class="text-muted">Дата выпуска - @Model?.ReleaseDate</small></p>
             </div>
         </div>
@@ -29,3 +28,6 @@
         </div>
     </div>
 </div>
+<footer>
+</footer>
+

@@ -21,7 +21,7 @@
     <div class="card col-md-12">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/8860a168-27d8-433f-ad9b-06472fca8596/600x900"
+                <img src="https://kuda-spb.ru//uploads/190729192252260.jpg"
                  class="img-fluid rounded-start rounded">
             </div>
             <div class="col-md-8">
@@ -61,16 +61,15 @@ else
     <div class="row">
         @foreach (var film in Model)
         {
-            <div class="row row-cols-1 col-md-4 text-center">
+            <div class="row row-cols-3 col-md-3 text-center">
                 <div class="col" style="padding: 10px;">
                     <div class="card">
-                        <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/8860a168-27d8-433f-ad9b-06472fca8596/600x900" class="card-img-top" alt="@film.Name">
+                        <img src="https://kuda-spb.ru//uploads/190729192252260.jpg" class="img-fluid img-thumbnail" alt="@film.Name">
                         <div class="card-body">
                             <h5 class="card-title">@film.Name</h5>
-                            <p class="card-text">@film.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Стоимость: @film.Price ₽</li>
+                            <li class="list-group-item">Стоимость: от @film.Price BYN</li>
                             <li class="list-group-item">@film.GenreFilm</li>
                         </ul>
                         <div class="card-body">
@@ -96,7 +95,7 @@ else
         const showCardElement = $('#showCardsId');
         const cardElement = $('.card');
 
-        const interval = 2000;
+        const interval = 1000;
 
         hideCardElement.click(function () {
             hideCardElement.hide(interval);
