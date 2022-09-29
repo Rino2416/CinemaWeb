@@ -10,51 +10,28 @@
     }
 </style>
 
-<div class="card-buttons-group">
+@*<div class="card-buttons-group">
     <button class="btn btn-danger" id='hideCardsId'>Скрыть</button>
     <button class='btn btn-success' id='showCardsId'>Показать</button>
-</div>
+</div>*@
 
 <div style="padding: 10px;"></div>
-@if (Model.Count == 0)
+@if (Model == null)
 {
     <div class="card col-md-12">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="https://kuda-spb.ru//uploads/190729192252260.jpg"
+                <img src="https://pbs.twimg.com/profile_images/829851381272035330/MdAMLH1n_400x400.jpg"
                  class="img-fluid rounded-start rounded">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Пока нету новых фильмов</h5>
-                    <p class="card-text">
-                        Пополниться чуть позже :)
-                    </p>
+                    <h1 class="card-title text-down">Список фильмов пуст.</h1>
                 </div>
             </div>
         </div>
     </div>
-    <div style="padding: 10px;"></div>
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-pills card-header-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
+  
 }
 else
 {
@@ -89,7 +66,7 @@ else
     </div>
 }
 
-@section pageScripts {
+@*@section pageScripts {
     <script>
         const hideCardElement = $('#hideCardsId');
         const showCardElement = $('#showCardsId');
@@ -110,4 +87,4 @@ else
         });
     </script>
 }
-
+*@

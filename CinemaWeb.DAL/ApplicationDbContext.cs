@@ -13,9 +13,10 @@ namespace CinemaWeb.DAL
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) // Установка связи с БД(регистрация app asp .net)
         {
-            
+            Database.EnsureCreated();
         }
 
         public DbSet<Film> Film { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

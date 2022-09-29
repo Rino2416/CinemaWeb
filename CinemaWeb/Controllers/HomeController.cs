@@ -28,5 +28,6 @@ namespace CinemaWeb.Controllers
             return View();
         }
 
+
     }
 }
