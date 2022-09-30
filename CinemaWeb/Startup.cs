@@ -1,6 +1,7 @@
 using CinemaWeb.DAL;
 using CinemaWeb.DAL.Interfaces;
 using CinemaWeb.DAL.Repositories;
+using CinemaWeb.Domain.Entity;
 using CinemaWeb.Service.Implementations;
 using CinemaWeb.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,9 @@ namespace CinemaWeb
 
             services.AddScoped<IFilmRepository, FilmRepository>();
             services.AddScoped<IFilmService, FilmService>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBaseRepository<User>, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
