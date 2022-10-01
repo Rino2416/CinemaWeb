@@ -11,10 +11,10 @@ namespace CinemaWeb.Domain.Enum
     public enum Role
     {
         [Display(Name = "Пользователь")]
-        Боевик = 0,
+        User = 0,
         [Display(Name = "Кассир")]
-        Детектив = 1,
+        Кассир = 1,
         [Display(Name = "Администратор")]
-        Драма = 2,
+        Администратор = 2,
     }
 }

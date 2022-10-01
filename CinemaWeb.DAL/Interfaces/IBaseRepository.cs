@@ -9,17 +9,12 @@ namespace CinemaWeb.DAL.Interfaces
 {
     public interface IBaseRepository<T> // методы для взаимодейсвтия с бд
     {
-        Task<bool> Create(T entity); // добавление объекта
+        Task Create(T entity); // добавление объекта
 
-        Task<T> Get(int id); // 1 объект из таблицы
+        IQueryable<T> GetAll(); // 1 объект из таблицы
 
-        Task<List<T>> Select(); // возвращение коллекции элементов
-
-        Task<bool> Delete(T entity); // удаление объекта
+        Task Delete(T entity); // удаление объекта
 
         Task<T> Update(T entity);
-
-      
-
     }
 }

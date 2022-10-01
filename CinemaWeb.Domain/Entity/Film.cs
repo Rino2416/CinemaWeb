@@ -15,6 +15,7 @@ namespace CinemaWeb.Domain.Entity
         public string Description { get; set; } // Описание
         public decimal Price { get; set; } // Цена
         public DateTime ReleaseDate { get; set; } // Дата выхода
+        public byte[]? Avatar { get; set; } // Универсальная картинка
 
     }  
 }

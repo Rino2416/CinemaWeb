@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CinemaWeb.DAL.Repositories
 {
-    public class FilmRepository : IFilmRepository
+    public class FilmRepository : IBaseRepository<Film>
     {
         private readonly ApplicationDbContext _db;
 
@@ -18,38 +18,26 @@ namespace CinemaWeb.DAL.Repositories
             _db = db;
         }
 
-        public async Task<bool> Create(Film entity)
+        public async Task Create(Film entity)
         {
-            await _db.Film.AddAsync(entity);
+            await _db.Films.AddAsync(entity);
             await _db.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> Delete(Film entity)
+        public async Task Delete(Film entity)
         {
-            _db.Film.Remove(entity);
+            _db.Films.Remove(entity);
             await _db.SaveChangesAsync();
-             return false;
         }
 
-        public async Task<Film> Get(int id)
+        public IQueryable<Film> GetAll()
         {
-            return await _db.Film.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<Film> GetByName(string name)
-        {
-            return await _db.Film.FirstOrDefaultAsync(x => x.Name == name);
-        }
-
-        public async Task<List<Film>> Select()
-        {
-             return await _db.Film.ToListAsync() ; //Обращение к таблице Film(получение списка данных)
+            return _db.Films;
         }
 
         public async Task<Film> Update(Film entity)
         {
-            _db.Film.Update(entity);
+            _db.Films.Update(entity);
             await _db.SaveChangesAsync();
             return entity;
         }

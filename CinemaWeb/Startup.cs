@@ -36,10 +36,11 @@ namespace CinemaWeb
             services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(connection));
 
-            services.AddScoped<IFilmRepository, FilmRepository>();
+         
             services.AddScoped<IFilmService, FilmService>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBaseRepository<Film>, FilmRepository>();
             services.AddScoped<IBaseRepository<User>, UserRepository>();
         }
 

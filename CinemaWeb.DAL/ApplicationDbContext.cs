@@ -16,7 +16,8 @@ namespace CinemaWeb.DAL
             Database.EnsureCreated();
         }
 
-        public DbSet<Film> Film { get; set; }
+        public DbSet<Film> Films { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
     }
 }

@@ -62,7 +62,7 @@ namespace CinemaWeb.Service.Implementations
             };
             try
             {
-                var users = await _userRepository.Get((int)id);
+                var users = await _userRepository.Get(long id);
                 if(users == null)
                 {
                     baseResponse.Description = "Данного пользователя нету";
