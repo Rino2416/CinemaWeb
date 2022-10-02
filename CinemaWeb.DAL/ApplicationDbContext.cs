@@ -1,11 +1,5 @@
 ﻿using CinemaWeb.Domain.Entity;
-using Microsoft.EntityFrameworkCore; 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaWeb.DAL
 {
@@ -16,7 +10,7 @@ namespace CinemaWeb.DAL
             Database.EnsureCreated();
         }
 
-        public DbSet<Film> Films { get; set; }
+        public DbSet<Film> Film { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
     }

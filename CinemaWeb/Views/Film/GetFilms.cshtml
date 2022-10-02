@@ -40,7 +40,7 @@
         <button class='btn btn-primary' id='compareBtnId'>Сравнение</button>
         @if (User.IsInRole("Admin"))
         {
-            <button class='btn btn-success' id='addCarId'>Добавить</button>   
+            <button class='btn btn-success' id='addFilmId'>Добавить</button>   
         }
     </div>
 </div>
@@ -97,7 +97,7 @@ else
                         <img src="~/img/Mustang.jpg" class="card-img-top card-image" alt="@film.Name">
                         <div class="card-body">
                             <h5 class="card-title">Название: @film.Name</h5>
-                            <p class="card-text">Краткое описание: @film.Description.Substring(0, 40) ...</p>
+                            @*<p class="card-text">Краткое описание: @film.Description.Substring(0, 40) ...</p>*@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Стоимость: @film.Price ₽</li>
@@ -108,7 +108,7 @@ else
                                     data-toggle="ajax-modal" data-target="Modal">Открыть</button>
                              @if (User.IsInRole("Admin"))
                              {
-                                 <a asp-controller="Car" asp-action="Delete" asp-route-id="@film.Id" class="btn btn-danger">Удалить</a>
+                                 <a asp-controller="Film" asp-action="Delete" asp-route-id="@film.Id" class="btn btn-danger">Удалить</a>
                              }
                         </div>
                     </div>
@@ -172,10 +172,10 @@ else
             modal.modal('hide');
        });
        
-       $('#addCarId').on('click', function () {
+       $('#addFilmId').on('click', function () {
            $.ajax({
               type: 'GET',
-              url : '/Car/Save',
+              url : '/Film/Save',
               success: function (response) {
                   $('.modal-dialog').removeClass("modal-lg");
                   modal.find(".modal-body").html(response);

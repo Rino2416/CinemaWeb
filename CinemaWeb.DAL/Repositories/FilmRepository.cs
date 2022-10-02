@@ -20,24 +20,24 @@ namespace CinemaWeb.DAL.Repositories
 
         public async Task Create(Film entity)
         {
-            await _db.Films.AddAsync(entity);
+            await _db.Film.AddAsync(entity);
             await _db.SaveChangesAsync();
         }
 
         public async Task Delete(Film entity)
         {
-            _db.Films.Remove(entity);
+            _db.Film.Remove(entity);
             await _db.SaveChangesAsync();
         }
 
         public IQueryable<Film> GetAll()
         {
-            return _db.Films;
+            return _db.Film;
         }
 
         public async Task<Film> Update(Film entity)
         {
-            _db.Films.Update(entity);
+            _db.Film.Update(entity);
             await _db.SaveChangesAsync();
             return entity;
         }
