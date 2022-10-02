@@ -1,12 +1,10 @@
-﻿using CinemaWeb.DAL.Interfaces;
-using CinemaWeb.Domain.Entity;
-using CinemaWeb.Domain.Enum;
-using CinemaWeb.Domain.ViewModels;
+﻿using CinemaWeb.Domain.ViewModels;
 using CinemaWeb.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace CinemaWeb.Controllers
 {
@@ -19,29 +17,27 @@ namespace CinemaWeb.Controllers
             _FilmService = filmService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetFilmsAsync()
+        public async Task<IActionResult> GetFilms()
         {
-          var resopnse = await _FilmService.GetFilms();
-            if (resopnse.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(resopnse.Data);
-            }
-            return RedirectToAction("Error");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetFilm(int id)
-        {
-            var response = await _FilmService.GetFilm(id);
+            var response = _FilmService.GetFilms();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
             }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            return View("Error", $"{response.Description}");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFilm(int id, bool isJson)
+        {
+            var response = await _FilmService.GetFilm(id);
+            if (isJson)
+            {
+                return Json(response.Data);
+            }
+            return PartialView("GetFilm", response.Data);
+        }
+
         [Authorize(Roles = "Admin")] // только для админа
         public async Task<IActionResult> Delete(int id)
         {
@@ -50,43 +46,65 @@ namespace CinemaWeb.Controllers
             {
                 return RedirectToAction("GetFilms");
             }
-            return RedirectToAction("Error");
+            return View("Error", $"{response.Description}");
         }
+
+        public IActionResult Compare() => PartialView();
 
         [HttpGet]
         [Authorize(Roles = "Admin")] // только для админа
-        public async Task<IActionResult> Save(int id) 
+        public async Task<IActionResult> Save(int id)
         {
-            if(id == 0)
-            {
-                return View();
-            }
+            if (id == 0)
+                return PartialView();
 
             var response = await _FilmService.GetFilm(id);
-            if(response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return PartialView(response.Data);
             }
-
-            return RedirectToAction("Error");
+            ModelState.AddModelError("", response.Description);
+            return PartialView();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Save(FilmViewModel model)
         {
+            ModelState.Remove("DateCreate");
             if (ModelState.IsValid)
             {
-                if(model.Id == 0)
+                if (model.Id == 0)
                 {
-                    await _FilmService.CreateFilm(model);
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Image.Length);
+                    }
+                    await _FilmService.Create(model, imageData);
                 }
                 else
                 {
                     await _FilmService.Edit(model.Id, model);
                 }
+                return RedirectToAction("GetCars");
             }
-            return RedirectToAction("GetFilms");
+            return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GetCar(string term, int page = 1, int pageSize = 5)
+        {
+            var response = await _FilmService.GetFilm(term);
+            return Json(response.Data);
+        }
+
+        [HttpPost]
+        public JsonResult GetTypes()
+        {
+            var types = _FilmService.GetTypes();
+            return Json(types.Data);
+        }
     }
+
 }
+

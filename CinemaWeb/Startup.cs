@@ -38,8 +38,12 @@ namespace CinemaWeb
 
          
             services.AddScoped<IFilmService, FilmService>();
-
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IAccountService, AccountService>();
+
+
+            services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
             services.AddScoped<IBaseRepository<Film>, FilmRepository>();
             services.AddScoped<IBaseRepository<User>, UserRepository>();
         }

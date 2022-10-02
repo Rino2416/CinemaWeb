@@ -11,7 +11,7 @@ namespace CinemaWeb.Service.Interfaces
 {
     public interface IUserService
     {
-        Task<IBaseResponse<UserViewModel>> CreateUser(UserViewModel model);
+        Task<IBaseResponse<User>> CreateUser(UserViewModel model);
         BaseResponse<Dictionary<int,string>> GetRoles();
         Task<IBaseResponse<bool>> DeleteUsers(long id);
         Task<IBaseResponse<IEnumerable<UserViewModel>>> GetUsers();

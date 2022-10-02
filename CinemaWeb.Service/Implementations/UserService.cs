@@ -1,17 +1,15 @@
 ﻿using CinemaWeb.DAL.Interfaces;
-using CinemaWeb.DAL.Repositories;
 using CinemaWeb.Domain.Entity;
 using CinemaWeb.Domain.Enum;
 using CinemaWeb.Domain.Extensions;
 using CinemaWeb.Domain.Response;
 using CinemaWeb.Domain.ViewModels;
 using CinemaWeb.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CinemaWeb.Service.Implementations
@@ -20,57 +18,85 @@ namespace CinemaWeb.Service.Implementations
     {
         private readonly ILogger<UserService> _logger;
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<Profile> _proFileRepository;
 
-        public UserService(ILogger<UserService> logger, IBaseRepository<User> userRepository)
+        public UserService(ILogger<UserService> logger, IBaseRepository<User> userRepository, IBaseRepository<Profile> proFileRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _proFileRepository = proFileRepository;
         }
-        public async Task<IBaseResponse<UserViewModel>> CreateUser(UserViewModel userViewModel)
+
+        public async Task<IBaseResponse<User>> CreateUser(UserViewModel model)
         {
-            var baseResponse = new BaseResponse<UserViewModel>();
             try
             {
-                var users = new User()
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+                if(user != null)
                 {
-                    Name = userViewModel.Name,
-                    Id = userViewModel.Id,
-                    Role = (Role)Convert.ToInt32(userViewModel.Role)
-
+                    return new BaseResponse<User>()
+                    {
+                        Description = "Данный логин занят",
+                       
+                    };
+                }
+                user = new User()
+                {
+                    Name = model.Name,
+                    Role = Enum.Parse<Role>(model.Role),
+                    Password = HashPasswordHelper.HashPassowrd(model.Password),
                 };
-                await _userRepository.Create(users);
+                await _userRepository.Create(user);
 
+                var profile = new Profile()
+                {
+                    Address = String.Empty,
+                    Age = 0,
+                    UserId = user.Id,
+                };
+                
+                await _proFileRepository.Create(profile);
+
+                return new BaseResponse<User>
+                {
+                    Data = user,
+                    Description = "Все прошло успешно",
+                    StatusCode = StatusCode.OK 
+                };
             }
             catch(Exception ex)
             {
-                _logger.LogError(ex, $"[UserService.GetUsers] error: {ex.Message}");
-                return new BaseResponse<UserViewModel>()
+                _logger.LogError(ex, $"[UserService.Create] error: {ex.Message}");
+                return new BaseResponse<User>()
                 {
                     StatusCode = StatusCode.InternalServerError,
-                    Description = $"Ошибка создания: {ex.Message}"
-                    
+                    Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
-            return baseResponse;
+
         }
 
         public async Task<IBaseResponse<bool>> DeleteUsers(long id)
         {
-            var baseResponse = new BaseResponse<bool>()
-            {
-                Data = true
-            };
             try
             {
-                var users = await _userRepository.Get(long id);
-                if(users == null)
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (user == null)
                 {
-                    baseResponse.Description = "Данного пользователя нету";
-                    baseResponse.StatusCode = StatusCode.UserNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.UserNotFound,
+                        Data = false
+                    };
                 }
-                await _userRepository.Delete(users);
-                return baseResponse;
+                await _userRepository.Delete(user);
+                _logger.LogInformation($"[UserService.DeleteUser] Удаление прошло успешно");
+
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = true
+                };
             }
             catch(Exception ex)
             {
@@ -78,16 +104,18 @@ namespace CinemaWeb.Service.Implementations
                 return new BaseResponse<bool>()
                 {
                     StatusCode = StatusCode.InternalServerError,
-                    Description = $"Ошибка при удалении: {ex.Message}"
+                    Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
         }
 
         public BaseResponse<Dictionary<int, string>> GetRoles()
         {
-            try {
+            try
+            {
                 var roles = ((Role[])Enum.GetValues(typeof(Role)))
-                        .ToDictionary(k => (int)k, t => t.GetDisplayName());
+                    .ToDictionary(k => (int)k, t => t.GetDisplayName());
+
                 return new BaseResponse<Dictionary<int, string>>()
                 {
                     Data = roles,
@@ -104,27 +132,33 @@ namespace CinemaWeb.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<User>> GetUsers(long id)
+        public async Task<IBaseResponse<IEnumerable<UserViewModel>>> GetUsers()
         {
-            var baseResponse = new BaseResponse<IEnumerable<User>>();
             try
             {
-                var users = await _userRepository.Select();
-                if(users.Count == 0)
+                var users = await _userRepository.GetAll()
+                    .Select(x => new UserViewModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Role = x.Role.GetDisplayName()
+                    })
+                    .ToListAsync();
+
+                _logger.LogInformation($"[UserService.GetUsers] получено элементов {users.Count}");
+                return new BaseResponse<IEnumerable<UserViewModel>>()
                 {
-                    baseResponse.Description = "Наёдено 0 пользователей";
-                    baseResponse.StatusCode = StatusCode.OK;
-                    return (IBaseResponse<User>)baseResponse;
-                }
-                baseResponse.Data = users;
-                baseResponse.StatusCode = StatusCode.OK;
-                return (IBaseResponse<User>)baseResponse;
+                    Data = users,
+                    StatusCode = StatusCode.OK
+                };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new BaseResponse<User>()
+                _logger.LogError(ex, $"[UserSerivce.GetUsers] error: {ex.Message}");
+                return new BaseResponse<IEnumerable<UserViewModel>>()
                 {
-                    Description = $"[GetUser] : {ex.Message}"
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
         }

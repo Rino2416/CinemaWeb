@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaWeb.Domain.Extensions
 {
-    public static class StringExtesion
+    public static class StringExtensions
     {
         public static string Join(this List<string> words)
         {
@@ -16,9 +16,7 @@ namespace CinemaWeb.Domain.Extensions
             {
                 sb.Append($"{i + 1}: {words[i]} ");
             }
-
             return sb.ToString();
         }
     }
 }
-

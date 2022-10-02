@@ -12,6 +12,7 @@ namespace CinemaWeb.Domain.Response
 
     public interface IBaseResponse<T> // Generic
     {
+        string Description { get; }
         T Data { get; set; }
         StatusCode StatusCode { get; set; }
     }

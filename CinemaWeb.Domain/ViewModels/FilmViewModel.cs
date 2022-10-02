@@ -1,13 +1,10 @@
-﻿using CinemaWeb.Domain.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace CinemaWeb.Domain.ViewModels
 {
+
     public class FilmViewModel
     {
         public int Id { get; set; }
@@ -29,6 +26,7 @@ namespace CinemaWeb.Domain.ViewModels
         [Required(ErrorMessage = "Укажите стоимость")]
         public decimal Price { get; set; } // Цена
         public DateTime ReleaseDate { get; set; } // Дата выхода
+        public IFormFile Avatar { get; set; }
         public byte[]? Image { get; set; }
 
     }
