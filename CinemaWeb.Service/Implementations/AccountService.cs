@@ -48,7 +48,7 @@ namespace CinemaWeb.Service.Implementations
                 {
                     Name = model.Name,
                     Role = Role.User,
-                    Password = HashPasswordHelper.HashPassowrd(model.Password),
+                    Password = HashPasswordHelper.HashPassowrd(model.Password),        
                 };
 
                 var profile = new Profile()

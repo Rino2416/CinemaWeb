@@ -4,6 +4,7 @@ using CinemaWeb.DAL.Repositories;
 using CinemaWeb.Domain.Entity;
 using CinemaWeb.Service.Implementations;
 using CinemaWeb.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +25,6 @@ namespace CinemaWeb
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; } // (регистрация класса для подключение бд в json)
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -46,6 +46,17 @@ namespace CinemaWeb
             services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
             services.AddScoped<IBaseRepository<Film>, FilmRepository>();
             services.AddScoped<IBaseRepository<User>, UserRepository>();
+
+
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+    });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +78,7 @@ namespace CinemaWeb
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
@@ -75,5 +87,6 @@ namespace CinemaWeb
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 }

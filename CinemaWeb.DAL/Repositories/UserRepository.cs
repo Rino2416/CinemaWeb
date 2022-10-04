@@ -22,7 +22,7 @@ namespace CinemaWeb.DAL.Repositories
         public async Task Create(User entity)
         {
            await _db.Users.AddAsync(entity);
-            await _db.SaveChangesAsync();
+           await _db.SaveChangesAsync();
         }
 
         public async Task Delete(User entity)

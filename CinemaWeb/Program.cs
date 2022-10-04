@@ -22,5 +22,7 @@ namespace CinemaWeb
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
     }
 }

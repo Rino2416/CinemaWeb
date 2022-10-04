@@ -1,24 +1,18 @@
 ﻿@model CinemaWeb.Domain.ViewModels.FilmViewModel
 @{
-    ViewBag.Title = "Афиша фильмов";
-    Layout = "_Layout";
+    var textTitle = Model?.Id == 0 ? "Изменение данных" : "Добавление данных";
 }
 
-@*data:image/jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())*@
-<form>
-    <div class="row">
-        <div class="col-md-12">
-            <img src="https://images.wallpaperscraft.ru/image/single/zdaniia_ogni_svechenie_279703_300x168.jpg"
-                 class="img-fluid rounded-start rounded" alt="@Model?.Name">
-        </div>
-    </div>
+<form asp-controller="Car" asp-action="Save" enctype="multipart/form-data" id="formSaveCar">
+    <input asp-for="Id" hidden />
+    <div asp-validation-summary="All" style="font-size:23px; font-family:Impact, serif" class="text-danger text-center"></div>
     <div class="row">
         <div class="form-group col-md-4">
             <label asp-for="@Model.Name" class="col-form-label"></label>
             <input type="text" class="form-control" asp-for="@Model.Name">
         </div>
-        @*<div class="form-group col-md-4">
-            <label asp-for="@Model." class="col-form-label"></label>
+@*        <div class="form-group col-md-4">
+            <label asp-for="@Model.Model" class="col-form-label"></label>
             <input class="form-control" asp-for="@Model.Model" />
         </div>*@
         <div class="form-group col-md-4">
@@ -33,33 +27,26 @@
         </div>
     </div>
     <div class="row">
-  @*      <div class="form-group col-md-6">
-            <label asp-for="@Model.GenreFilm" class="col-form-label"></label>
-            <select class="form-control" id="filmTypeId">
-                <option value="@Model.GenreFilm">@Model.GenreFilm</option>
-            </select>
-        </div>*@
         <div class="form-group col-md-6">
-            <label asp-for="@Model.ReleaseDate" class="col-form-label"></label>
-            <input class="form-control" asp-for="@Model.ReleaseDate" />
+            <label asp-for="@Model.GenreFilm" class="col-form-label"></label>
+            <select asp-for="@Model.GenreFilm" class="form-control" id="carTypeId"></select>
         </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label">Изображение</label>
+            <input asp-for="@Model.Avatar" class="form-control" type="file">
+        </div>
+    </div>
 </form>
-
-<style>
-    label {
-        color: black;
-    }
-</style>
 
 <script src="~/lib/select2/js/select2.full.min.js"></script>
 <script>
-    $('#carTypeId2').select2({
+    $('#carTypeId').select2({
         placeholder: "Выберите тип",
         minimumInputLength: 0,
         allowClear: true,
         ajax: {
             type: "POST",
-            url: "@Url.Action("GetTypes", "Film")",
+            url: "@Url.Action("GetTypes", "Car")",
             dataType: "json",
             processResults: function (result) {
                 return {
@@ -75,3 +62,8 @@
     });
 </script>
 
+<style>
+    label {
+        color: black;
+    }
+</style>

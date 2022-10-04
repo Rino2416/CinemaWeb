@@ -53,7 +53,6 @@ namespace CinemaWeb.Controllers
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
-
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", response.Description);
