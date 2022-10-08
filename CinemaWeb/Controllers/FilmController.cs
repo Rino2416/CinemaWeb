@@ -10,16 +10,16 @@ namespace CinemaWeb.Controllers
 {
     public class FilmController : Controller
     {
-        private readonly IFilmService _FilmService;
+        private readonly IFilmService _filmService;
 
         public FilmController(IFilmService filmService)
         {
-            _FilmService = filmService;
+            _filmService = filmService;
         }
         [HttpGet]
         public async Task<IActionResult> GetFilms()
         {
-            var response = _FilmService.GetFilms();
+            var response = _filmService.GetFilms();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -30,7 +30,7 @@ namespace CinemaWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFilm(int id, bool isJson)
         {
-            var response = await _FilmService.GetFilm(id);
+            var response = await _filmService.GetFilm(id);
             if (isJson)
             {
                 return Json(response.Data);
@@ -39,9 +39,9 @@ namespace CinemaWeb.Controllers
         }
 
         [Authorize(Roles = "Admin")] // только для админа
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteFilms(int id)
         {
-            var response = await _FilmService.DeleteFilm(id);
+            var response = await _filmService.DeleteFilm(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return RedirectToAction("GetFilms");
@@ -58,7 +58,7 @@ namespace CinemaWeb.Controllers
             if (id == 0)
                 return PartialView();
 
-            var response = await _FilmService.GetFilm(id);
+            var response = await _filmService.GetFilm(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);
@@ -80,11 +80,11 @@ namespace CinemaWeb.Controllers
                     {
                         imageData = binaryReader.ReadBytes((int)model.Image.Length);
                     }
-                    await _FilmService.Create(model, imageData);
+                    await _filmService.Create(model, imageData);
                 }
                 else
                 {
-                    await _FilmService.Edit(model.Id, model);
+                    await _filmService.Edit(model.Id, model);
                 }
                 return RedirectToAction("GetCars");
             }
@@ -94,14 +94,14 @@ namespace CinemaWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCar(string term, int page = 1, int pageSize = 5)
         {
-            var response = await _FilmService.GetFilm(term);
+            var response = await _filmService.GetFilm(term);
             return Json(response.Data);
         }
 
         [HttpPost]
         public JsonResult GetTypes()
         {
-            var types = _FilmService.GetTypes();
+            var types = _filmService.GetTypes();
             return Json(types.Data);
         }
     }

@@ -34,16 +34,14 @@
         padding: 10px;
     }
 </style>
-
-<div class="card col-md-12" style="margin: 10px;">
-    <div class="card-buttons-group">
-        <button class='btn btn-primary' id='compareBtnId'>Сравнение</button>
-        @if (User.IsInRole("Admin"))
-        {
+@if (User.IsInRole("Admin"))
+{
+    <div class="card col-md-12" style="margin: 10px;">
+        <div class="card-buttons-group">
             <button class='btn btn-success' id='addFilmId'>Добавить</button>   
-        }
+        </div>
     </div>
-</div>
+}
 
 <div style="padding: 10px;"></div>
 @if (Model == null)
@@ -91,7 +89,7 @@ else
     <div class="row">
         @foreach (var film in Model)
         {
-            <div class="row row-cols-1 @cardStyle text-center">
+            <div class="row row-cols-1 col-md-4 text-center">
                 <div class="col" style="padding: 10px;">
                     <div class="card">
                         <img src="~/img/LSKIcon.jpg" class="card-img-top card-image" alt="@film.Name">
@@ -108,7 +106,7 @@ else
                                     data-toggle="ajax-modal" data-target="Modal">Открыть</button>
                              @if (User.IsInRole("Admin"))
                              {
-                                 <a asp-controller="Film" asp-action="Delete" asp-route-id="@film.Id" class="btn btn-danger">Удалить</a>
+                                 <a asp-controller="Film" asp-action="DeleteFilms" asp-route-id="@film.Id" class="btn btn-danger">Удалить</a>
                              }
                         </div>
                     </div>

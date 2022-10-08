@@ -15,6 +15,6 @@ namespace CinemaWeb.Domain.Enum
         [Display(Name = "Кассир")]
         Кассир = 1,
         [Display(Name = "Администратор")]
-        Администратор = 2,
+        Admin = 2,
     }
 }

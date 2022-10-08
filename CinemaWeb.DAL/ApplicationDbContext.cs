@@ -1,5 +1,8 @@
 ﻿using CinemaWeb.Domain.Entity;
+using CinemaWeb.Domain.Enum;
+using CinemaWeb.Domain.Extensions;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace CinemaWeb.DAL
 {
@@ -13,5 +16,7 @@ namespace CinemaWeb.DAL
         public DbSet<Film> Film { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+
+       
+        }
     }
-}
