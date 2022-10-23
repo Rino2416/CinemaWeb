@@ -6,7 +6,30 @@
 }
 
 <div style="padding: 40px;"></div>
+<div class="form">
+    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+       
+    <h1>Вход</h1>
+    <div class="input-form">
+        @*<input type="text" placeholder="Логин">*@
+            <input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
+    </div>
+    <div class="input-form">
+        @*<input type="password" placeholder="Пароль">*@
+            <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+    </div>
+    <div class="input-form">
+        @*<input type="submit" value="Войти">*@
+            
+            <button class="btn btn-success">Войти</button>
+    </div>
+        <a asp-controller="Account" asp-action="Register" class="forget" type="button">Регистрация</a>
+        <div class="formpicture"></div>
+    </form>
+    <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
+</div>
 
+@*<div class="formpicture"></div>
 <div class="container py-5">
     <div class="row">
         <div class="col-md-12">
@@ -39,3 +62,4 @@
         </div>
     </div>
 </div>
+*@

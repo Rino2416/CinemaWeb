@@ -7,7 +7,30 @@
 
 <div style="padding: 20px;"></div>
 
-<div class="container py-5">
+
+<div class ="form">
+    <form asp-controller="Account" asp-action="Register">
+        <h1>Регистрация</h1>
+        <div class = "input-form">
+            <input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Логин" type="text">
+        </div>
+        <div class = "input-form">
+            <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+        </div>
+        <div class = "input-form">
+            <input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+        </div>
+        <div class = "input-form">
+            <input type = "submit" value="Регистрация">
+        </div>
+        
+        <a href="#" class="forget">Есть аккаунт?</a>
+   
+    </form>
+    <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
+    </div>
+
+@*<div class="container py-5">
     <div class="row">
         <div class="col-md-12">
             <div class="row justify-content-center">
@@ -42,3 +65,4 @@
         </div>
     </div>
 </div>
+*@

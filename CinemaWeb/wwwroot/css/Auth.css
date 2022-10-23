@@ -1,0 +1,93 @@
+body{
+    background: linear-gradient(rgb(0,0,0,.3),rgba(0,0,0,.3)), url(https://www.zastavki.com/pictures/1920x1200/2019Food_Popcorn_in_a_cardboard_bag_on_a_blue_table_134716_18.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: sans-serif;
+}
+
+
+.form {
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    right: 0%;
+    transform: translate(-51%,-48%);
+    background: rgb(0,0,0,.7);
+    height: 500px;
+    width: 350px;
+}
+
+.form h1 {
+    margin: 30px 100px;
+    padding: 0px;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.box {
+    margin: 0px 0px;
+    text-align: right;
+    box-sizing: border-box;
+    padding-left: 750px;
+    height: 5px;
+}
+
+.input-form {
+    margin: 15px 40px;
+    text-align: center;
+}
+
+.input-form input {
+    padding: 10px;
+    width: 100%;
+    color: #fff;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+}
+
+.input-form input[type="text"]:focus, .input-form input[type="password"]:focus{
+    border: 1px solid #0f0f0f;
+}
+
+.input-form input[type="submit"]{
+    margin-top: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    background: #0fc3f5;
+    transition: .3s;
+}
+
+.input-form input[type="submit"]:hover{
+    background: #4442db;  
+}
+
+.form a{
+    display: block;
+    padding: 0 0 30px;
+    text-align: center;
+    text-decoration: none;
+    transition: .3s;
+    color: azure;
+}
+
+.form a:hover{
+    color: #0fc3f5;
+}
+
+.formpicture {
+    position: absolute;
+    top: 50%;
+    left: 150%;
+    right: 0%;
+    transform: translate(-50%,-50%);
+    background-image: url(../img/colazh.jpg);
+    height: 500px;
+    width: 350px;
+}
